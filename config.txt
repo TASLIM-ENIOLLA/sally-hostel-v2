@@ -1,0 +1,13 @@
+Backend Login: sally.hostels.taslim.eniolla@gmail.com
+Password: $Aderibigbe1904
+
+Backend Production: https://sally-hostels.000webhostapp.com/
+Backend Username: sally-hostels
+
+Database name: id18523583_sally_hostel
+Database host: localhost
+Database username: id18523583_root
+Database password: _Aderibigbe1904
+
+Frontend Server: vercel.com
+Frontend Production: https://sallyhostels.vercel.app/sign-up/student

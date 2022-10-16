@@ -1,0 +1,65 @@
+@import url("./common.css");
+@import url("./bootstrap.min.css");
+@import url("../font-awesome/animate.css");
+@import url("../b-icon/css/bootstrap-icons.css");
+@import url("../font-awesome/font-awesome/font-awesome.css");
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background: #5a5a5a33;
+}
+::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    border-radius: 20px;
+    background: var(--theme-color);
+}
+.min-width-230px{
+    min-width: 230px;
+}
+.bg-splash{
+    background: url(/images/Splash-bg.png);
+    background-size: cover;
+    background-position: center;
+}
+.bg-banner{
+    background: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3)), url(../images/homeBanner.png);
+    background-size: cover;
+    background-position: center;
+}
+.rounded-1x{
+    border-radius: 7px;
+}
+.rounded-2x{
+    border-radius: 10px;
+}
+.thick-border-bottom{
+    position: relative;
+}
+.thick-border-bottom::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    background: var(--theme-color);
+    height: 5px;
+}
+.anime{
+    animation: anime 2s infinite linear;
+}
+@keyframes anime{
+    0%{
+        width: 0%;
+        transform: translateX(0);
+    }
+    50%{
+        width: 50%;
+        transform: translateX(50%);
+    }
+    100%{
+        width: 100%;
+        transform: translateX(100%);
+    }
+}

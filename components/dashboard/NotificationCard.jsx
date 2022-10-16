@@ -1,0 +1,19 @@
+export const NotificationCard = () => {
+    return (
+        <div className = 'container-fluid py-4 theme-bg-light rounded-2x shadow-sm'>
+            <div className = 'row a-i-c j-c-space-between mb-2'>
+                <div className = 'col-auto'>
+                    <p className = 'bold text-dark text-capitalize m-0'>hostel support</p>
+                </div>
+                <div className = 'col-auto'>
+                    <div className = 'text-muted text-capitalize half-bold'>fri nov 5, 2021</div>
+                </div>
+            </div>
+            <div className = 'row a-i-c j-c-space-between'>
+                <div className = 'col-12'>
+                    <p className = 'double-line text-dark text-capitalize m-0'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        </div>
+    )
+}
