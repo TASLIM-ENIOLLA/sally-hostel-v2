@@ -1,6 +1,8 @@
 import {useEffect, useState, Fragment} from 'react'
-import {JWTVerficationComponent} from '/components/jwt'
 import DashboardTemplate from '/components/dashboard'
+import {JWTVerficationComponent} from '/components/jwt'
+import {HostelOverviewCard} from '/components/dashboard/HostelOverviewCard'
+import {HostelOwnerNotificationCard} from '/components/dashboard/HostelOwnerNotificationCard'
 
 export default function Index({account_type, jwt_token}){
     return (
@@ -36,7 +38,7 @@ export default function Index({account_type, jwt_token}){
                                             <h5 className = 'bold text-dark text-capitalize m-0'>my hostels</h5>
                                         </div>
                                         <div className = 'col-auto'>
-                                            <a href = './all-hostels' className = 'underline half-bold text-capitalize m-0'>view all</a>
+                                            <a href = './hostels/new' className = 'theme-bg half-bold text-white text-capitalize px-4 py-3 rounded-1x underline-0 shadow'>add new</a>
                                         </div>
                                     </div>
                                 </div>
@@ -54,38 +56,11 @@ export default function Index({account_type, jwt_token}){
                                         <div className = 'col-12 col-sm-6 col-md-4 col-lg-3 pb-4'>
                                             <HostelOverviewCard />
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section className = 'container-fluid mb-5'>
-                    <div className = 'row'>
-                        <div className = 'col-lg-5 col-md-7 col-auto'>
-                            <div className = 'row'>
-                                <div className = 'container-fluid'>
-                                    <div className = 'col-12 bg-white shadow-sm border rounded-2x'>
-                                        <div className = 'row py-4'>
-                                            <div className = 'col-12 mb-5'>
-                                                <h5 className = 'm-0 bold text-dark text-capitalize'>recent activity</h5>
-                                            </div>
-                                            <div className = 'col-12'>
-                                                <div className = 'row'>
-                                                    <div className = 'col-12 mb-3'>
-                                                        <NotificationCard />
-                                                    </div>
-                                                    <div className = 'col-12 mb-3'>
-                                                        <NotificationCard />
-                                                    </div>
-                                                    <div className = 'col-12 mb-3'>
-                                                        <NotificationCard />
-                                                    </div>
-                                                    <div className = 'col-12 mb-3'>
-                                                        <NotificationCard />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div className = 'col-12 col-sm-6 col-md-4 col-lg-3 pb-4'>
+                                            <HostelOverviewCard />
+                                        </div>
+                                        <div className = 'col-12 col-sm-6 col-md-4 col-lg-3 pb-4'>
+                                            <HostelOverviewCard />
                                         </div>
                                     </div>
                                 </div>
@@ -95,39 +70,6 @@ export default function Index({account_type, jwt_token}){
                 </section>
             </DashboardTemplate>
         </JWTVerficationComponent>
-    )
-}
-
-function NotificationCard(){
-    return (
-        <div className = 'border-bottom pb-3'>
-            <p className = 'text-sentence half-bold mb-2'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-            <span className = 'text-muted text-capitalize'>May 23, 2022</span>
-        </div>
-    )
-}
-
-function HostelOverviewCard(){
-    return (
-        <div className = 'container-fluid'>
-            <div className = 'row theme-bg-light py-4 rounded-2x shadow'>
-                <div className = 'col-auto mb-4'>
-                    <h5 className = 'm-0 text-capitalize half-bold text-dark'>Hostel name</h5>
-                </div>
-                <div className = 'col-12'>
-                    <div className = 'row j-c-space-between'>
-                        <div className = 'col-auto'>
-                            <h2 className = 'm-0 text-capitalize half-bold text-dark'>1023</h2>
-                            <span className = 'text-capitalize text-muted'>rooms occupied</span>
-                        </div>
-                        <div className = 'col-auto'>
-                            <h3 className = 'm-0 text-capitalize half-bold text-dark'>20</h3>
-                            <span className = 'text-capitalize text-muted'>left</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     )
 }
 
