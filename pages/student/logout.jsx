@@ -16,7 +16,7 @@ export default function Index({account_type, jwt_token}){
                 </section>
                 <section className = 'container-fluid'>
                     <div className = 'row mb-5'>
-                        <div className = 'col-12'>
+                        <div className = 'col-9'>
                             <div className = 'container-fluid bg-white shadow-sm rounded-2x px-4 py-5'>
                                 <div className = 'row'>
                                     <div className = 'col-12 mb-4'>

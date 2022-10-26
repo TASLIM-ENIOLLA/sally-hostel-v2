@@ -61,10 +61,13 @@ export default function Index({account_type, jwt_token}){
                         </div>
                     </div>
                 </section>
+                <VerificationStatus jwt_token = {jwt_token} />
                 <section className = 'container-fluid mb-4'>
                     <div className = 'row'>
                         <div className = 'col-lg-8 mb-4'>
                             <div className = 'row mb-4'>
+                                <div className = 'col-12 mb-4'>
+                                </div>
                                 <div className = 'col-12 mb-4'>
                                     <h5 className = 'half-bold text-dark text-capitalize'>our hostels</h5>
                                 </div>
@@ -104,6 +107,40 @@ export default function Index({account_type, jwt_token}){
                 `}</style>
             </DashboardTemplate>
         </JWTVerficationComponent>
+    )
+}
+
+function VerificationStatus({jwt_token}){
+    const [status, setStatus] = useState()
+
+    useEffect(() => {
+        fetch(API.student.verification_status, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
+        .then(e => e.json())
+        .then(({account_type, status}) => setStatus(status))
+    }, [])
+
+    return (
+        <section className = 'container-fluid'>
+            <div className = 'row a-i-c j-c-space-between mb-4'>
+                <div className = 'col-12'>{(
+                    (status === undefined || status === 1)
+                    ? <></>
+                    : (
+                        (status === 0)
+                        ? (
+                            <div className = 'p-3 text-center bg-warning rounded shadow-sm text-capitalize text-muted half-bold'>Your account has not been verified. Click <a href = './student/verification' className = 'theme-color underline m-0'>here</a> to verify your account.</div>
+                        )
+                        : (
+                            (status === 2)
+                            ? (
+                                <div className = 'p-3 text-center bg-warning rounded shadow-sm text-capitalize text-muted half-bold'>Your account has been suspended. Click <a href = './student/verification' className = 'theme-color underline m-0'>here</a> to know more.</div>
+                            )
+                            : <></>
+                        )
+                    )
+                )}</div>
+            </div>
+        </section>
     )
 }
 

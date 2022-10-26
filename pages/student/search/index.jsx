@@ -8,6 +8,13 @@ import {HostelCard} from '/components/dashboard/HostelCard'
 
 export default function Index({account_type, jwt_token}){
     const {query: {q, c}} = useRouter()
+    const [hostelList, setHostelList] = useState()
+
+    useEffect(() => {
+        fetch(API.student.search, {method: 'POST', body: ParseObjectToFormData({query: q, jwt_token})})
+        .then(e => e.json())
+        .then(({data}) => setHostelList(data))
+    }, [])
 
     return (
         <JWTVerficationComponent jwt_token = {jwt_token}>
@@ -19,9 +26,58 @@ export default function Index({account_type, jwt_token}){
                         </div>
                     </div>
                 </section>
-                <section className = 'container-fluid py-5'>
-                    <div className = 'row mb-5'>
-
+                <section className = 'container-fluid mb-5'>
+                    <form method = 'GET' action = './search' className = 'row'>
+                        <div className = 'col-lg-8'>
+                            <div className = 'row'>
+                                <div className = 'col'>
+                                    <input defaultValue = {q} autoFocus = {true} placeholder = 'Search hostels...' name = 'q' className = 'p-3 bg-white rounded-2x border-0 outline-0 d-block shadow w-100' />
+                                </div>
+                                <div className = 'col-auto'>
+                                    <button className = 'px-5 py-3 theme-bg rounded-2x text-white border-0 outline-0 text-capitalize'>search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <section className = 'container-fluid mb-4'>
+                    <div className = 'row'>
+                        <div className = 'col-12 mb-4'>
+                            <div className = 'row mb-4'>
+                                <div className = 'col-12 mb-4'>
+                                </div>
+                                <div className = 'col-12 mb-4'>
+                                    <h5 className = 'half-bold text-dark text-capitalize'>search result</h5>
+                                </div>
+                                <div className = 'col-12'>
+                                    <div className = 'row'>{
+                                        (hostelList && hostelList.length > 0)
+                                        ? hostelList.map((hostelData) => (
+                                            <div key = {hostelData.id} className = 'col-6 col-sm-4 col-md-4 col-lg-3 pb-4'>
+                                                <HostelCard jwt_token = {jwt_token} {...hostelData} />
+                                            </div>
+                                        ))
+                                        : (
+                                            (hostelList && hostelList.length === 0)
+                                            ? (
+                                                <div className = 'col-12'>
+                                                    <div className = 'text-center p-5 bg-white rounded-1x shadow-sm text-muted half-bold'>
+                                                        Empty result returned!
+                                                    </div>
+                                                </div>
+                                            )
+                                            : (
+                                                <div className = 'col-12'>
+                                                    <div className = 'text-center p-5 bg-white rounded-1x shadow-sm text-muted half-bold'>
+                                                        No hostel available for now!
+                                                    </div>
+                                                </div>
+                                            )
+                                        )
+                                    }</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <style jsx>{`
