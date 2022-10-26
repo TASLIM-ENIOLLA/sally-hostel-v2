@@ -1,18 +1,18 @@
-export const HostelOverviewCard = () => {
+export const HostelOverviewCard = ({name, id, rented_apartments, vacant_apartments}) => {
     return (
         <div className = 'container-fluid'>
-            <div className = 'row theme-bg-light py-4 rounded-2x shadow'>
+            <div onClick = {() => window.location = `./hostels/${id}`} className = 'row theme-bg-light py-4 rounded-2x shadow cursor-pointer'>
                 <div className = 'col-auto mb-4'>
-                    <h5 className = 'm-0 text-capitalize half-bold text-dark'>Hostel name</h5>
+                    <h5 className = 'm-0 text-capitalize half-bold text-dark one-line'>{name}</h5>
                 </div>
                 <div className = 'col-12'>
                     <div className = 'row j-c-space-between'>
                         <div className = 'col-auto'>
-                            <h2 className = 'm-0 text-capitalize half-bold text-dark'>1023</h2>
-                            <span className = 'text-capitalize text-muted'>rooms occupied</span>
+                            <h2 className = 'm-0 text-capitalize half-bold text-dark'>{rented_apartments}</h2>
+                            <span className = 'text-capitalize text-muted'>rented out</span>
                         </div>
                         <div className = 'col-auto'>
-                            <h3 className = 'm-0 text-capitalize half-bold text-dark'>20</h3>
+                            <h3 className = 'm-0 text-capitalize half-bold text-dark'>{vacant_apartments}</h3>
                             <span className = 'text-capitalize text-muted'>left</span>
                         </div>
                     </div>

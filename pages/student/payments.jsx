@@ -1,10 +1,20 @@
+import {API} from '/config'
 import {useEffect, useState} from 'react'
-import {JWTVerficationComponent} from '/components/jwt'
-import DashboardTemplate from '/components/dashboard'
 import {CircleIntersect} from '/components/svg'
+import {ParseObjectToFormData} from '/functions'
+import DashboardTemplate from '/components/dashboard'
+import {JWTVerficationComponent} from '/components/jwt'
 import {NotificationCard} from '/components/dashboard/NotificationCard'
 
 export default function Index({account_type, jwt_token}){
+    const [payments, setPayments] = useState([])
+
+    useEffect(() => {
+        fetch(API.student.payments, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
+        .then(e => e.json())
+        .then(({data}) => setPayments(data))
+    }, [])
+
     return (
         <JWTVerficationComponent jwt_token = {jwt_token}>
             <DashboardTemplate account_type = {account_type}>
@@ -17,11 +27,27 @@ export default function Index({account_type, jwt_token}){
                 </section>
                 <section className = 'container-fluid'>
                     <div className = 'row mb-5'>
-                        <div className = 'col-lg-5 mb-4'>
-                            <MyCard />
-                        </div>
                         <div className = 'col-lg-7 mb-4'>
-                            <Receipts />
+                            <div className = 'container-fluid p-4 bg-white shadow-sm rounded-2x'>
+                                <div className = 'row mb-4 a-i-c j-c-space-between'>
+                                    <div className = 'col-12'>
+                                        <p className = 'm-0 bold text-capitalize'>receipts</p>
+                                    </div>
+                                </div>
+                                <div className = 'row a-i-c j-c-space-between'>{
+                                    (payments.length > 0)
+                                    ? payments.map(each => (
+                                        <div className = 'col-12 mb-4' key = {each.id}>
+                                            <ReceiptCard {...each} />
+                                        </div>
+                                    ))
+                                    : (
+                                        <div className = 'col-12 mb-4'>
+                                            <div className = 'p-5 shadow-sm rounded-2x bg-light text-center half-bold text-muted text-sentence'>You have not made any payment.</div>
+                                        </div>
+                                    )
+                                }</div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -121,7 +147,7 @@ function AddNewCard(){
     )
 }
 
-function Receipts(){
+function Receipts({data}){
     return (
         <div className = 'container-fluid p-4 bg-white shadow-sm rounded-2x'>
             <div className = 'row mb-4 a-i-c j-c-space-between'>
@@ -156,19 +182,37 @@ function Receipts(){
     )
 }
 
-function ReceiptCard(){
+function ReceiptCard({timestamp, price, due_in, hostel_id, name, hostel_type, transaction_id}){
+    const [seeMore, setSeeMore] = useState(false)
+
     return (
         <div className = 'theme-bg-light py-3 rounded-1x container-fluid'>
             <div className = 'row a-i-c'>
                 <div className = 'col'>
-                    <div className = 'bold mb-2 text-dark'>March 10, 2020</div>
-                    <div className = 'half-bold text-muted'>REF:- 1334-6546-1355-7565</div>
+                    <div className = 'bold mb-2 text-dark'>{new Date(timestamp).toDateString()} {new Date(timestamp).toLocaleTimeString()}</div>
+                    <div className = 'half-bold text-muted'>REF:- {transaction_id}</div>
                 </div>
                 <div className = 'col-auto'>
-                    <div className = 'half-bold text-muted'>$180.00</div>
+                    <div className = 'half-bold text-muted'>N{new Intl.NumberFormat().format(due_in * price)}</div>
                 </div>
                 <div className = 'col-auto'>
-                    <button className = 'bg-clear border-0 half-bold theme-color text-capitalize p-1 underline'>view</button>
+                    <button onClick = {() => setSeeMore(!seeMore)} className = 'bg-clear border-0 half-bold theme-color text-capitalize p-1 underline'>see {seeMore ? 'less' : 'more'}</button>
+                </div>
+                <div className = {`${seeMore ? '' : 'd-none'} col-12 mt-3`}>
+                    <div className = 'bg-clear border-0 half-bold theme-color text-capitalize p-1'>
+                        <a href = {`./hostels/${hostel_id}`} className = 'underline'>{name}</a>
+                        <span className = 'bi-box-arrow-up-right text-muted ml-2'></span>
+                    </div>
+                    <div className = 'bg-clear border-0 half-bold text-muted text-capitalize p-1'>{hostel_type}</div>
+                    <div className = 'bg-clear border-0 half-bold text-muted text-capitalize p-1'>transaction {
+                        (status === 0)
+                        ? 'pending'
+                        : (
+                            (status === 1)
+                            ? 'validated'
+                            : 'unresolved'
+                        )
+                    }</div>
                 </div>
             </div>
         </div>

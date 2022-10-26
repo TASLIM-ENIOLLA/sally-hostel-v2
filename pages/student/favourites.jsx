@@ -1,9 +1,19 @@
+import {API} from '/config'
 import {useEffect, useState} from 'react'
-import {JWTVerficationComponent} from '/components/jwt'
+import {ParseObjectToFormData} from '/functions'
 import DashboardTemplate from '/components/dashboard'
+import {JWTVerficationComponent} from '/components/jwt'
 import {HostelCard} from '/components/dashboard/HostelCard'
 
 export default function Index({account_type, jwt_token}){
+    const [hostelList, setHostelList] = useState()
+
+    useEffect(() => {
+        fetch(API.student.get_favourite_hostels, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
+        .then(e => e.json())
+        .then(({data}) => setHostelList(data))
+    }, [])
+
     return (
         <JWTVerficationComponent jwt_token = {jwt_token}>
             <DashboardTemplate account_type = {account_type}>
@@ -13,41 +23,36 @@ export default function Index({account_type, jwt_token}){
                             <div className = 'h2 text-capitalize theme-color'>favourites</div>
                         </div>
                         <div className = 'col-lg-4'>
-                            <div className = 'row'>
+                            <form method = 'GET' action = './search' className = 'row'>
                                 <div className = 'col'>
-                                    <input placeholder = 'Search hostels' className = 'p-3 bg-white rounded-2x border-0 outline-0 d-block w-100 shadow-sm' />
+                                    <input placeholder = 'Search hostels' className = 'p-3 bg-white rounded-2x border-0 outline-0 d-block w-100 shadow-sm' name = 'q' />
+                                    <input hidden = {true} name = 'c' defaultValue = 'favourites' />
                                 </div>
                                 <div className = 'col-auto'>
                                     <button className = 'px-4 py-3 theme-bg rounded-2x border-0 outline-0 shadow-sm text-white text-capitalize'>search</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </section>
                 <section className = 'container-fluid py-5'>
-                    <div className = 'row mb-5'>
-                        <div className = 'col-md-6 col-sm-6 col-xs-6 col-lg-4 col-xl-3 mb-4'>
-                            <HostelCard />
-                        </div>
-                        <div className = 'col-md-6 col-sm-6 col-xs-6 col-lg-4 col-xl-3 mb-4'>
-                            <HostelCard />
-                        </div>
-                        <div className = 'col-md-6 col-sm-6 col-xs-6 col-lg-4 col-xl-3 mb-4'>
-                            <HostelCard />
-                        </div>
-                        <div className = 'col-md-6 col-sm-6 col-xs-6 col-lg-4 col-xl-3 mb-4'>
-                            <HostelCard />
-                        </div>
-                        <div className = 'col-md-6 col-sm-6 col-xs-6 col-lg-4 col-xl-3 mb-4'>
-                            <HostelCard />
-                        </div>
-                        <div className = 'col-md-6 col-sm-6 col-xs-6 col-lg-4 col-xl-3 mb-4'>
-                            <HostelCard />
-                        </div>
-                        <div className = 'col-md-6 col-sm-6 col-xs-6 col-lg-4 col-xl-3 mb-4'>
-                            <HostelCard />
-                        </div>
-                    </div>
+                    <div className = 'row mb-5'>{
+                        (hostelList && hostelList.length > 0)
+                        ? [...hostelList].map((hostelData) => (
+                            <div key = {hostelData.id} className = 'col-6 col-md-4 col-lg-3 pb-4'>
+                                <HostelCard onStateChange = {(isFavourite) => {
+                                    if(!isFavourite) setHostelList(hostelList.filter(hostel => hostel.id !== hostelData.id))
+                                }} jwt_token = {jwt_token} {...hostelData} />
+                            </div>
+                        ))
+                        : (
+                            <div className = 'col-12'>
+                                <div className = 'text-center p-5 bg-white rounded-1x shadow-sm text-muted half-bold'>
+                                    You have not chosen a favourite hostel!
+                                </div>
+                            </div>
+                        )
+                    }</div>
                 </section>
                 <style jsx>{`
                     .z-index-10{

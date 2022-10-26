@@ -1,10 +1,12 @@
 export const ParseObjectToFormData = (object) => {
     const formData = new FormData()
 
-    for(const prop in object){
-        if(object[prop]){
-            formData.append(prop, object[prop])
-        }
+    for(let prop in object){
+        let formElementValue = object[prop]
+        if(typeof formElementValue !== 'object' || formElementValue.type)
+            formData.append(prop, formElementValue)
+        else if(Array.isArray(formElementValue))
+            formElementValue.forEach(each => formData.append(prop, each))
     }
 
     return formData

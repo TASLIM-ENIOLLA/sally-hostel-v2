@@ -1,4 +1,4 @@
-import {Home, Favorites, Notification, Settings, Payment, Overview, Logout, Receipts} from '/components/svg'
+import {Home, Favorites, Notification, Settings, Payment, Archive, Overview, Logout, Receipts} from '/components/svg'
 
 export const URL = {
     'student': [
@@ -7,6 +7,7 @@ export const URL = {
         {name: 'notifications', href: '/student/notifications', Icon: Notification},
         {name: 'settings', href: '/student/settings', Icon: Settings},
         {name: 'payments', href: '/student/payments', Icon: Payment},
+        {name: 'my profile', href: '/student/my-profile', Icon: Archive},
         {name: 'logout', href: '/student/logout', Icon: Logout},
     ],
     'hostel-owner': [
@@ -15,6 +16,7 @@ export const URL = {
         {name: 'notifications', href: '/hostel-owner/notifications', Icon: Notification},
         {name: 'settings', href: '/hostel-owner/settings', Icon: Settings},
         {name: 'receipts', href: '/hostel-owner/receipts', Icon: Receipts},
+        {name: 'my profile', href: '/hostel-owner/my-profile', Icon: Archive},
         {name: 'logout', href: '/hostel-owner/logout', Icon: Logout},
     ]
 }
