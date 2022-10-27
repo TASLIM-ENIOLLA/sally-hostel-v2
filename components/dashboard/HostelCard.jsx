@@ -16,7 +16,7 @@ export const HostelCard = ({id, name, address, favourite, jwt_token, photos, pri
 
     return (
         <div className = 'container-fluid py-3 bg-white shadow-sm rounded-2x'>
-            <div onClick = {() => window.location = `${hostelURL}${id}`} className = 'hostel-img rounded-2x bg-light mb-3'></div>
+            <div onClick = {() => window.location = `${hostelURL}${id}`} className = {`hostel-img-${id} rounded-2x bg-light mb-3`}></div>
             <div className = 'row j-c-space-between a-i-c mb-3'>
                 <div className = 'col-auto'>
                     <p className = 'half-bold one-line text-dark text-capitalize m-0'>
@@ -49,7 +49,7 @@ export const HostelCard = ({id, name, address, favourite, jwt_token, photos, pri
                 </div>
             </div>
             <style>{`
-                .hostel-img{
+                .hostel-img-${id}{
                     min-height: 120px;
                     background-image: linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,.2)), url(${hostelImageURL}${owner_id}/${id}/${photos[0]});
                     background-size: cover;

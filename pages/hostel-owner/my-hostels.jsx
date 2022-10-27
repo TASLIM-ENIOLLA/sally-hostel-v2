@@ -1,4 +1,4 @@
-import {API} from '/config'
+import {API, SERVER} from '/config'
 import {ParseObjectToFormData} from '/functions'
 import {useEffect, useState, Fragment} from 'react'
 import DashboardTemplate from '/components/dashboard'
@@ -7,11 +7,16 @@ import {HostelOverviewCard} from '/components/dashboard/HostelOverviewCard'
 
 export default function Index({account_type, jwt_token}){
     const [hostelList, setHostelList] = useState()
+    const [userData, setUserData] = useState({})
 
     useEffect(() => {
         fetch(API.hostel_owner.get_my_hostels, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
         .then(e => e.json())
         .then(({type, data}) => setHostelList(data))
+
+        fetch(API.hostel_owner.get_user_data, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
+        .then(e => e.json())
+        .then(({data}) => setUserData(data))
     }, [])
 
     return (
@@ -26,11 +31,11 @@ export default function Index({account_type, jwt_token}){
                             <div className = 'container-fluid'>
                                 <div className = 'bg-white a-i-c shadow-sm rounded-2x py-4 row'>
                                     <div className = 'col'>
-                                        <h5 className = 'm-0 bold text-capitalize'>Taslim Eniolla</h5>
-                                        <span className = 'text-muted text-capitalize'>hostel owner</span>
+                                        <h5 className = 'm-0 bold text-capitalize'>{userData.f_name} {userData.l_name}</h5>
+                                        <span className = 'text-muted text-capitalize'>{userData.account_type?.replace('_', ' ')}</span>
                                     </div>
                                     <div className = 'col-auto'>
-                                        <img src = '/images/ellipse 5.png' width = '40' />
+                                        <ProfileImg src = {`${SERVER.BACKEND.URL}${userData.profile_img}`} width = '40' />
                                     </div>
                                 </div>
                             </div>
@@ -88,6 +93,22 @@ export default function Index({account_type, jwt_token}){
                 </section>
             </DashboardTemplate>
         </JWTVerficationComponent>
+    )
+}
+
+function ProfileImg({src, width, onChange}){
+    const [file, setFile] = useState()
+
+    return (
+        <div className = 'profile-img rounded-circle bg-light po-rel shadow-sm border' style = {{width: `${width}px`, height: `${width}px`}}>
+            <style jsx>{`
+                .profile-img{
+                    background-image: url(${src});
+                    background-size: cover;
+                    background-position: center;
+                }
+            `}</style>
+        </div>
     )
 }
 

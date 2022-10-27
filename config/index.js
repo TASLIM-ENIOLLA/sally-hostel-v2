@@ -32,12 +32,13 @@ export const API = {
 		verify_user:              new URL('php/processes/hostel-owner/VerifyUser.php', SERVER.BACKEND.URL).href,
 		get_user_data:            new URL('php/processes/hostel-owner/GetUserData.php', SERVER.BACKEND.URL).href,
 		update_data:              new URL('php/processes/hostel-owner/UpdateData.php', SERVER.BACKEND.URL).href,
-		get_hostel_data:        new URL('php/processes/hostel-owner/GetHostelData.php', SERVER.BACKEND.URL).href,
-		receipts:               new URL('php/processes/hostel-owner/GetReceipts.php', SERVER.BACKEND.URL).href,
-		notifications:          new URL('php/processes/hostel-owner/GetNotifications.php', SERVER.BACKEND.URL).href,
+		get_hostel_data:          new URL('php/processes/hostel-owner/GetHostelData.php', SERVER.BACKEND.URL).href,
+		receipts:                 new URL('php/processes/hostel-owner/GetReceipts.php', SERVER.BACKEND.URL).href,
+		notifications:            new URL('php/processes/hostel-owner/GetNotifications.php', SERVER.BACKEND.URL).href,
 	},
 	student: {
-		search:            new URL('php/processes/student/Search.php', SERVER.BACKEND.URL).href,
+		update_data:            new URL('php/processes/student/UpdateData.php', SERVER.BACKEND.URL).href,
+		search:                 new URL('php/processes/student/Search.php', SERVER.BACKEND.URL).href,
 		verify_user:            new URL('php/processes/student/VerifyUser.php', SERVER.BACKEND.URL).href,
 		verification_status:    new URL('php/processes/student/VerificationStatus.php', SERVER.BACKEND.URL).href,
 		get_all_hostels:        new URL('php/processes/student/GetAllHostels.php', SERVER.BACKEND.URL).href,
@@ -52,5 +53,11 @@ export const API = {
 		register_payment:       new URL('php/processes/student/RegisterPayment.php', SERVER.BACKEND.URL).href,
 		notifications:          new URL('php/processes/student/GetNotifications.php', SERVER.BACKEND.URL).href,
 		payments:               new URL('php/processes/student/GetPayments.php', SERVER.BACKEND.URL).href,
+	},
+	admin: {
+		login: new URL('php/processes/admin/Login.php', SERVER.BACKEND.URL).href,
+		users: new URL('php/processes/admin/Users.php', SERVER.BACKEND.URL).href,
+		payments: new URL('php/processes/admin/Payments.php', SERVER.BACKEND.URL).href,
+		get_user_data: new URL('php/processes/admin/GetUserData.php', SERVER.BACKEND.URL).href,
 	}
 }

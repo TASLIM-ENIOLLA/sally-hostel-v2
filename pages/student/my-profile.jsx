@@ -56,7 +56,7 @@ function ProfileData({jwt_token}){
     return (
         <div className = 'container'>
             <div className = 'row bg-white rounded-2x shadow-sm py-5'>
-                <div className = 'col-12 mb-5 pb-4'>
+                <div className = 'd-none col-12 mb-5 pb-4'>
                     <ProfileImg src = {`${SERVER.BACKEND.URL}/${userData.profile_img}`} width = '130' />
                 </div>
                 <div className = 'col-sm-6 mb-5'>
@@ -105,7 +105,7 @@ function ProfileData({jwt_token}){
                     <button onClick = {() => (
                         (!editable)
                         ? setEditable(true)
-                        : fetch(API.hostel_owner.update_data, {method: 'POST', body: ParseObjectToFormData({...editedList, jwt_token})})
+                        : fetch(API.student.update_data, {method: 'POST', body: ParseObjectToFormData({...editedList, jwt_token})})
                         .then(e => e.json())
                         .then(({type, message}) => notify2({type, message, onSucceed: () => setEditable(false)}))
                     )} className = 'py-3 px-5 border-0 shadow text-capitalize rounded-1x theme-bg text-white half-bold'>{(

@@ -56,11 +56,8 @@ function ProfileData({jwt_token}){
     return (
         <div className = 'container'>
             <div className = 'row bg-white rounded-2x shadow-sm py-5'>
-                <div className = 'col-12 mb-5 pb-4'>
-                    <ProfileImg onChange = {(file) => {
-                        setEditedList({...editedList, profile_img: file})
-                        setUserData({...userData, profile_img: file})
-                    }} src = {`${SERVER.BACKEND.URL}/${userData.profile_img}`} width = '130' />
+                <div className = 'd-none col-12 mb-5 pb-4'>
+                    <ProfileImg src = {`${SERVER.BACKEND.URL}/${userData.profile_img}`} width = '130' />
                 </div>
                 <div className = 'col-sm-6 mb-5'>
                     <p className = 'text-sentence mb-1 half-bold text-muted'>first name</p>
@@ -108,9 +105,13 @@ function ProfileData({jwt_token}){
                     <button onClick = {() => (
                         (!editable)
                         ? setEditable(true)
-                        : fetch(API.hostel_owner.update_data, {method: 'POST', body: ParseObjectToFormData({...editedList, jwt_token})})
-                        .then(e => e.json())
-                        .then(({type, message}) => notify2({type, message, onSucceed: () => setEditable(false)}))
+                        : (
+                            (Object.values(editedList || {}).length > 0)
+                            ? fetch(API.hostel_owner.update_data, {method: 'POST', body: ParseObjectToFormData({...editedList, jwt_token})})
+                            .then(e => e.json())
+                            .then(({type, message}) => notify2({type, message, onSucceed: () => setEditable(false)}))
+                            : notify2({type: 'danger', message: 'You haven\'t made any changes.'})
+                        )
                     )} className = 'py-3 px-5 border-0 shadow text-capitalize rounded-1x theme-bg text-white half-bold'>{(
                         (editable)
                         ? 'update data'
