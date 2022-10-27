@@ -10,9 +10,9 @@ export default function Index({account_type, jwt_token}){
     const [payments, setPayments] = useState([])
 
     useEffect(() => {
-        fetch(API.student.payments, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
+        fetch(API.hostel_owner.receipts, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
         .then(e => e.json())
-        .then(({data}) => setPayments(data))
+        .then(({data}) => setPayments(data) || console.log(data))
     }, [])
 
     return (
@@ -27,7 +27,7 @@ export default function Index({account_type, jwt_token}){
                 </section>
                 <section className = 'container-fluid'>
                     <div className = 'row mb-5'>
-                        <div className = 'col-lg-7 mb-4'>
+                        <div className = 'col-lg-9 mb-4'>
                             <div className = 'container-fluid p-4 bg-white shadow-sm rounded-2x'>
                                 <div className = 'row mb-4 a-i-c j-c-space-between'>
                                     <div className = 'col-12'>
@@ -43,7 +43,7 @@ export default function Index({account_type, jwt_token}){
                                     ))
                                     : (
                                         <div className = 'col-12 mb-4'>
-                                            <div className = 'p-5 shadow-sm rounded-2x bg-light text-center half-bold text-muted text-sentence'>You have not made any payment.</div>
+                                            <div className = 'p-5 rounded-2x border text-center half-bold text-muted text-sentence'>You do not have any receipt.</div>
                                         </div>
                                     )
                                 }</div>
@@ -182,7 +182,7 @@ function Receipts({data}){
     )
 }
 
-function ReceiptCard({timestamp, price, due_in, hostel_id, name, hostel_type, transaction_id}){
+function ReceiptCard({timestamp, price, due_in, hostel_id, hostel_name, name, hostel_type, transaction_id}){
     const [seeMore, setSeeMore] = useState(false)
 
     return (
@@ -200,7 +200,7 @@ function ReceiptCard({timestamp, price, due_in, hostel_id, name, hostel_type, tr
                 </div>
                 <div className = {`${seeMore ? '' : 'd-none'} col-12 mt-3`}>
                     <div className = 'bg-clear border-0 half-bold theme-color text-capitalize p-1'>
-                        <a href = {`./hostels/${hostel_id}`} className = 'underline'>{name}</a>
+                        <a href = {`./hostels/${hostel_id}`} className = 'underline'>{name || hostel_name}</a>
                         <span className = 'bi-box-arrow-up-right text-muted ml-2'></span>
                     </div>
                     <div className = 'bg-clear border-0 half-bold text-muted text-capitalize p-1'>{hostel_type}</div>
@@ -231,7 +231,7 @@ export function getServerSideProps(context){
 
     return {
         props: {
-            account_type: 'student',
+            account_type: 'hostel-owner',
             jwt_token: cookie
         }
     }

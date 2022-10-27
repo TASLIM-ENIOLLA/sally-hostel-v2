@@ -22,7 +22,7 @@ export default function New({jwt_token}){
         address: '',
         type: '',
         description: '',
-        features: [],
+        'features[]': [],
         price: 0,
         'photos[]': [],
         vacant_apartments: 0

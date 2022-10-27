@@ -1,10 +1,20 @@
-import {useEffect, useState} from 'react'
-import {JWTVerficationComponent} from '/components/jwt'
-import DashboardTemplate from '/components/dashboard'
+import {API} from '/config'
 import {Read} from '/components/svg'
+import {useEffect, useState} from 'react'
+import {ParseObjectToFormData} from '/functions'
+import DashboardTemplate from '/components/dashboard'
+import {JWTVerficationComponent} from '/components/jwt'
 import {NotificationCard} from '/components/dashboard/NotificationCard'
 
 export default function Index({account_type, jwt_token}){
+    const [notifications, setNotifications] = useState([])
+
+    useEffect(() => {
+        fetch(API.hostel_owner.notifications, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
+        .then(e => e.json())
+        .then(({data}) => setNotifications(data))
+    }, [])
+
     return (
         <JWTVerficationComponent jwt_token = {jwt_token}>
             <DashboardTemplate account_type = {account_type}>
@@ -13,44 +23,23 @@ export default function Index({account_type, jwt_token}){
                         <div className = 'col-auto'>
                             <div className = 'h2 text-capitalize theme-color'>notifications</div>
                         </div>
-                        <div className = 'col-lg-4'>
-                            <div className = 'row'>
-                                <div className = 'col'>
-                                    <input placeholder = 'Search hostels' className = 'p-3 bg-white rounded-2x border-0 outline-0 d-block w-100 shadow-sm' />
-                                </div>
-                                <div className = 'col-auto'>
-                                    <button className = 'px-4 py-3 theme-bg rounded-2x border-0 outline-0 shadow-sm text-white text-capitalize'>search</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </section>
                 <section className = 'container-fluid py-5'>
-                    <div className = 'row mb-5'>
-                        <div className = 'col-12 mb-4'>
-                            <NotificationCard />
-                        </div>
-                        <div className = 'col-12 mb-4'>
-                            <NotificationCard />
-                        </div>
-                        <div className = 'col-12 mb-4'>
-                            <NotificationCard />
-                        </div>
-                        <div className = 'col-12 mb-4'>
-                            <NotificationCard />
-                        </div>
-                        <div className = 'col-12 mb-4'>
-                            <NotificationCard />
-                        </div>
-                        <div className = 'col-12 mb-4'>
-                            <NotificationCard />
-                        </div>
-                        <div className = 'col-12 mb-4'>
-                            <NotificationCard />
-                        </div>
-                    </div>
+                    <div className = 'row mb-5'>{
+                        (notifications.length > 0)
+                        ? notifications.map(each => (
+                            <div className = 'col-12 mb-4' key = {each.id}>
+                                <NotificationCard {...each} />
+                            </div>
+                        ))
+                        : (
+                            <div className = 'col-12 mb-4'>
+                                <div className = 'p-5 shadow-sm rounded-2x bg-light text-center half-bold text-muted text-sentence'>You do not have any notification for now</div>
+                            </div>
+                        )
+                    }</div>
                 </section>
-                <MarkAllAsRead />
                 <style jsx>{`
                     .bg-light-fade-down{
                         background: linear-gradient(to bottom, #f8f9fa 80%, #f8f9fa00);
@@ -91,7 +80,7 @@ export function getServerSideProps(context){
 
     return {
         props: {
-            account_type: 'student',
+            account_type: 'hostel-owner',
             jwt_token: cookie
         }
     }

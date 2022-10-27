@@ -57,9 +57,9 @@ export default function Index({account_type, jwt_token}){
                                         (hostelList)
                                         ? (
                                             (hostelList.length > 0)
-                                            ? hostelList.map(({id, ...otherProps}) => (
-                                                <div key = {id} className = 'col-12 col-sm-6 col-md-4 col-lg-3 pb-4'>
-                                                    <HostelOverviewCard {...otherProps} />
+                                            ? hostelList.map((each) => (
+                                                <div key = {each.id} className = 'col-12 col-sm-6 col-md-4 col-lg-3 pb-4'>
+                                                    <HostelOverviewCard href = {`./hostel-owner/hostels/${each.id}`} {...each} />
                                                 </div>
                                             ))
                                             : (

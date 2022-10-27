@@ -24,8 +24,8 @@ export default {
                     <div className = 'row a-i-c mb-4'>
                         <div className = 'col'>
                             <ListComponent onChange = {(list) => updateHostelData({
-                                features: list
-                            })} value = {hostelData.features} />
+                                'features[]': list
+                            })} value = {hostelData['features[]']} />
                         </div>
                     </div>
                     <div className = 'row a-i-c mb-4'>
@@ -35,7 +35,7 @@ export default {
                     </div>
                     <div className = 'row a-i-c'>
                         <div className = 'col-auto'>
-                            <button onClick = {() => next(hostelData.price)} className = 'underline-0 theme-bg px-5 py-3 rounded-1x text-white border-0 text-capitalize'>continue</button>
+                            <button onClick = {() => next(hostelData['features[]'])} className = 'underline-0 theme-bg px-5 py-3 rounded-1x text-white border-0 text-capitalize'>continue</button>
                         </div>
                     </div>
                 </div>

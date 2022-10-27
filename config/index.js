@@ -32,6 +32,9 @@ export const API = {
 		verify_user:              new URL('php/processes/hostel-owner/VerifyUser.php', SERVER.BACKEND.URL).href,
 		get_user_data:            new URL('php/processes/hostel-owner/GetUserData.php', SERVER.BACKEND.URL).href,
 		update_data:              new URL('php/processes/hostel-owner/UpdateData.php', SERVER.BACKEND.URL).href,
+		get_hostel_data:        new URL('php/processes/hostel-owner/GetHostelData.php', SERVER.BACKEND.URL).href,
+		receipts:               new URL('php/processes/hostel-owner/GetReceipts.php', SERVER.BACKEND.URL).href,
+		notifications:          new URL('php/processes/hostel-owner/GetNotifications.php', SERVER.BACKEND.URL).href,
 	},
 	student: {
 		search:            new URL('php/processes/student/Search.php', SERVER.BACKEND.URL).href,
