@@ -92,7 +92,7 @@ export default function Index({account_type, jwt_token}){
                         </div>
                     </div>
                 </section>
-                <section className = 'container-fluid mb-5'>
+                <section className = 'container-fluid mb-5 d-none'>
                     <div className = 'row'>
                         <div className = 'col-lg-5 col-md-8 col-auto'>
                             <div className = 'row'>
