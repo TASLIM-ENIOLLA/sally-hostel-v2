@@ -78,6 +78,11 @@ export default function Index({account_type, jwt_token}){
                                     <div className = 'col-12 mb-5'>
                                         <h5 className = 'theme-color text-capitalize mb-3'>get direction</h5>
                                         <p className = 'text-muted text-sentence'>{description}</p>
+                                        <div id="map" className = "bg-secondary" style = {{
+                                            top: 0,
+                                            bottom: 0,
+                                            width: "100%"
+                                        }}></div>
                                     </div>{
                                         (owner_verified)
                                         ? (
