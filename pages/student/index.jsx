@@ -1,4 +1,4 @@
-import {API} from '/config'
+import {API, SERVER} from '/config'
 import {useEffect, useState} from 'react'
 import {ParseObjectToFormData} from '/functions'
 import DashboardTemplate from '/components/dashboard'
@@ -9,11 +9,16 @@ import {Search, MapOutline, Map, Settings, Heart} from '/components/svg'
 
 export default function Index({account_type, jwt_token}){
     const [hostelList, setHostelList] = useState()
+    const [userData, setUserData] = useState({})
 
     useEffect(() => {
         fetch(API.student.get_all_hostels, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
         .then(e => e.json())
         .then(({data}) => setHostelList(data))
+
+        fetch(API.student.get_user_data, {method: 'POST', body: ParseObjectToFormData({jwt_token})})
+        .then(e => e.json())
+        .then(({data}) => setUserData(data))
     }, [])
 
     return (
@@ -40,18 +45,22 @@ export default function Index({account_type, jwt_token}){
                             <div className = 'container-fluid bg-white py-4 rounded-2x shadow'>
                                 <div className = 'row a-i-c mb-3'>
                                     <div className = 'col-auto'>
-                                        <img src = '/images/userPic.png' />
+                                        <img width = '45' src = {(
+                                            (userData.profile_img)
+                                            ? `${SERVER.BACKEND.URL}${userData.profile_img}`
+                                            : undefined
+                                        )} />
                                     </div>
                                     <div className = 'col'>
-                                        <h5 className = 'text-dark half-bold text-capitalize mb-0'>Welcome Sally</h5>
-                                        <span className = 'text-capitalize text-muted'>student</span>
+                                        <h5 className = 'text-dark half-bold text-capitalize mb-0'>Welcome {userData.f_name}</h5>
+                                        <span className = 'text-capitalize text-muted'>{userData?.account_type?.replace('_', '')}</span>
                                     </div>
                                 </div>
                                 <div className = 'row a-i-c'>
                                     <div className = 'col-auto'>
-                                        <button className = 'text-muted bg-clear border-0'>
+                                        <a href = './student/my-profile' className = 'text-muted bg-clear border-0'>
                                             <Settings />
-                                        </button>
+                                        </a>
                                     </div>
                                     <div className = 'col'>
                                         <a href = './student/my-profile' className = 'text-capitalize text-muted'>customize / manage your profile</a>
