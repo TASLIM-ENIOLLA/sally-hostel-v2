@@ -8,8 +8,8 @@ import {SplitPageComponent} from '/components/dashboard/SplitPageComponent'
 
 export default function Login(){
     const [formData, setFormData] = useState({
-        uid: '',
-        password: ''
+        uid: '4556',
+        password: '11111111'
     })
 
     return (
@@ -22,7 +22,7 @@ export default function Login(){
                     value: payload,
                     expires: (new Date().getTime() + (3600 * 1000 * 24 * 30)),
                     path: '/'
-                }).then(() => window.location = `./${formData.account_type.replace('_', '-')}`)
+                }).then(() => window.location = `./dashboard`)
             }))} className = 'bg-white rounded-2x shadow p-5 mx-auto w-100' style = {{maxWidth: '450px'}}>
                 <div className = 'row'>
                     <div className = 'col-12 mb-5'>

@@ -21,5 +21,6 @@ export const URL = {
         {name: 'home', href: '/admin/dashboard', Icon: Overview},
         {name: 'users', href: '/admin/dashboard/users', Icon: Archive},
         {name: 'payments', href: '/admin/dashboard/payments', Icon: Payment},
+        {name: 'logout', href: '/admin/dashboard/logout', Icon: Logout},
     ]
 }
