@@ -35,7 +35,7 @@ export default function DashboardTemplate({account_type, children}){
                 <div className = 'col p-0'>
                     <div className = 'vh-100 overflow-y-auto po-rel'>
                         <div className = 'd-md-none'>
-                            <div className = 'container-fluid po-sticky top-0 left-0 py-3 w-100 shadow border-bottom'>
+                            <div className = 'container-fluid po-sticky top-0 left-0 py-4 w-100 border-bottom'>
                                 <div className = 'row j-c-space-between a-i-c'>
                                     <div className = 'col-auto'>
                                         <Logo />
