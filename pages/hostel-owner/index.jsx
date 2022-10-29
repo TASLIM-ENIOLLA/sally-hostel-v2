@@ -34,9 +34,11 @@ export default function Index({account_type, jwt_token}){
                                         <h5 className = 'm-0 bold text-capitalize'>{userData.f_name} {userData.l_name}</h5>
                                         <span className = 'text-muted text-capitalize'>{userData.account_type?.replace('_', ' ')}</span>
                                     </div>
-                                    <div className = 'col-auto'>
-                                        {/* <ProfileImg src = {`${SERVER.BACKEND.URL}${userData.profile_img}`} width = '40' /> */}
-                                    </div>
+                                    <div className = 'col-auto'>{
+                                        (userData.profile_img)
+                                        ? <ProfileImg src = {`${SERVER.BACKEND.URL}${userData.profile_img}`} width = '40' />
+                                        : undefined
+                                    }</div>
                                 </div>
                             </div>
                         </div>
