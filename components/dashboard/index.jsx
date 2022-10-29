@@ -80,9 +80,9 @@ export default function DashboardTemplate({account_type, children}){
                                         ))
                                     }</div>
                                 </div>
-                                <div className = 'py-2 text-center'>
+                                <div className = 'py-3 text-center'>
                                     <button onClick = {() => setSideBar(false)} className = 'bg-clear border-0 rounded-1x px-2'>
-                                        <span className = 'bi-x fa-3x text-dark'></span>
+                                        <span className = 'bi-x fa-3x text-danger'></span>
                                     </button>
                                 </div>
                             </div>
