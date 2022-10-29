@@ -5,14 +5,14 @@ export const SERVER = {
 		URL: (
 			(dev)
 			? 'http://localhost:3000/'
-			: 'http://unknown/'
+			: 'https://sallyhostels.vercel.app/'
 		)
 	},
 	BACKEND: {
 		URL: (
 			(dev)
 			? 'http://localhost:80/sally-hostel-v2/'
-			: 'http://unknown/'
+			: 'https://sally-hostels.000webhostapp.com/'
 		)
 	},
 }
