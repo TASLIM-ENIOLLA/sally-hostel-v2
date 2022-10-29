@@ -36,8 +36,11 @@ export default function DashboardTemplate({account_type, children}){
                     <div className = 'vh-100 overflow-y-auto po-rel'>
                         <div className = 'd-md-none'>
                             <div className = 'container-fluid po-sticky top-0 left-0 py-3 w-100 shadow border-bottom'>
-                                <div className = 'row'>
-                                    <div className = 'col-12 text-right'>
+                                <div className = 'row j-c-space-between a-i-c'>
+                                    <div className = 'col-auto'>
+                                        <Logo />
+                                    </div>
+                                    <div className = 'col-auto'>
                                         <button className = 'bg-clear border-0 rounded-1x px-2'>
                                             <span className = 'bi-border-width fa-2x text-dark'></span>
                                         </button>
