@@ -2,7 +2,7 @@ import {API} from '/config'
 import {Check} from '/components/svg'
 import {notify2} from '/components/popup'
 import {useState, useEffect} from 'react'
-import {ParseObjectToFormData} from '/functions'
+import {ParseObjectToFormData, CookieStore} from '/functions'
 import {JWTVerficationComponent} from '/components/jwt'
 import Pages from '/components/pages/hostel-owner/hostels/new'
 import PagesContext from '/contexts/pages/hostel-owner/hostels/new'
@@ -33,7 +33,7 @@ function PageComponent({jwt_token}){
                     message,
                     duration: 4000,
                     onSucceed: () => {
-                        //UNSET COOKIE
+                        CookieStore.removeCookie('SALLY_HOSTEL')
                         window.location = '/'
                     }
                 }))

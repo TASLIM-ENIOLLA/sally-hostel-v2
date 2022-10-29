@@ -9,6 +9,18 @@ import PagesContext from '/contexts/pages/hostel-owner/hostels/new'
 import {SplitPageComponent} from '/components/dashboard/SplitPageComponent'
 
 export default function New({jwt_token}){
+    return (
+        <JWTVerficationComponent jwt_token = {jwt_token}>
+            <SplitPageComponent
+                title = 'We need to verify your hostel.'
+                subTitle = 'Kindly provide the necessary details in time to complete the verification.'>
+                <Component jwt_token = {jwt_token} />
+            </SplitPageComponent>
+        </JWTVerficationComponent>
+    )
+}
+
+function Component({jwt_token}){
     const PageComponent = Page.component
     const PageTitle = Page.title
     const PageSubTitle = Page.subTitle
@@ -26,55 +38,49 @@ export default function New({jwt_token}){
     })
 
     return (
-        <JWTVerficationComponent jwt_token = {jwt_token}>
-            <SplitPageComponent
-                title = 'We need to verify your hostel.'
-                subTitle = 'Kindly provide the necessary details in time to complete the verification.'>
-                <div className = 'rounded-2x shadow py-5 px-3 bg-white text-left'>
-                    <div className = 'container-fluid py-2'>
-                        <div className = 'row a-i-c mb-4'>
-                            <div className = 'col-12'>
-                                <h4 className = 'text-dark m-0 bold'>Upload documents</h4>
-                            </div>
-                        </div>
-                        <UploadComponent value = {files.national_ID} title = 'national ID' onChange = {(file) => updateFiles({
-                            national_ID: file
-                        })} />
-                        <UploadComponent value = {files.drivers_licence} title = 'drivers licence' onChange = {(file) => updateFiles({
-                            drivers_licence: file
-                        })} />
-                        <UploadComponent value = {files.passport} title = 'passport' onChange = {(file) => updateFiles({
-                            passport: file
-                        })} />
-                        <UploadComponent value = {files.proof_of_ownership} title = 'proof of ownership' onChange = {(file) => updateFiles({
-                            proof_of_ownership: file
-                        })} />
-                        <div className = 'row a-i-c my-4'>
-                            <div className = 'col'>
-                                <div className = 'text-sentence text-muted m-0 half-bold'>you can upload your document in the following formats: JPG, JPEG, PNG, PDF, not greater than 5MB.</div>
-                            </div>
-                        </div>
-                        <div className = 'row a-i-c'>
-                            <div className = 'col-auto'>
-                                <button onClick = {() => {
-                                    if(Object.values(files).includes(null)) notify2({
-                                        type: 'danger',
-                                        message: 'Some documents have not been selected.'
-                                    })
-                                    else fetch(API.hostel_owner.verify_user, {method: 'POST', body: ParseObjectToFormData(files)})
-                                    .then(e => e.json())
-                                    .then(({type, message}) => notify2({
-                                        type,
-                                        message,
-                                        onSucceed: () => window.location = './'
-                                    }))
-                                }} className = 'underline-0 half-bold theme-bg px-5 py-3 rounded-1x text-white border-0 text-capitalize'>upload documents</button>
-                            </div>
-                        </div>
+        <div className = 'rounded-2x shadow py-5 px-3 bg-white text-left'>
+            <div className = 'container-fluid py-2'>
+                <div className = 'row a-i-c mb-4'>
+                    <div className = 'col-12'>
+                        <h4 className = 'text-dark m-0 bold'>Upload documents</h4>
                     </div>
                 </div>
-            </SplitPageComponent>
-        </JWTVerficationComponent>
+                <UploadComponent value = {files.national_ID} title = 'national ID' onChange = {(file) => updateFiles({
+                    national_ID: file
+                })} />
+                <UploadComponent value = {files.drivers_licence} title = 'drivers licence' onChange = {(file) => updateFiles({
+                    drivers_licence: file
+                })} />
+                <UploadComponent value = {files.passport} title = 'passport' onChange = {(file) => updateFiles({
+                    passport: file
+                })} />
+                <UploadComponent value = {files.proof_of_ownership} title = 'proof of ownership' onChange = {(file) => updateFiles({
+                    proof_of_ownership: file
+                })} />
+                <div className = 'row a-i-c my-4'>
+                    <div className = 'col'>
+                        <div className = 'text-sentence text-muted m-0 half-bold'>you can upload your document in the following formats: JPG, JPEG, PNG, PDF, not greater than 5MB.</div>
+                    </div>
+                </div>
+                <div className = 'row a-i-c'>
+                    <div className = 'col-auto'>
+                        <button onClick = {() => {
+                            if(Object.values(files).includes(null)) notify2({
+                                type: 'danger',
+                                message: 'Some documents have not been selected.'
+                            })
+                            else fetch(API.hostel_owner.verify_user, {method: 'POST', body: ParseObjectToFormData(files)})
+                            .then(e => e.json())
+                            .then(({type, message}) => notify2({
+                                type,
+                                message,
+                                onSucceed: () => window.location = './'
+                            }))
+                        }} className = 'underline-0 half-bold theme-bg px-5 py-3 rounded-1x text-white border-0 text-capitalize'>upload documents</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 
