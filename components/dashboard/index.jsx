@@ -1,10 +1,12 @@
+import {Logo, LogoWhite} from '/components/svg'
 import {useRouter} from 'next/router'
-import {Logo} from '/components/svg'
+import {useState} from 'react'
 import {URL} from '/data'
 
 export default function DashboardTemplate({account_type, children}){
     const {asPath} = useRouter()
     const url = URL[account_type]
+    const [sideBar, setSideBar] = useState(false)
 
     return (
         <section>
@@ -41,7 +43,7 @@ export default function DashboardTemplate({account_type, children}){
                                         <Logo />
                                     </div>
                                     <div className = 'col-auto'>
-                                        <button className = 'bg-clear border-0 rounded-1x px-2'>
+                                        <button onClick = {() => setSideBar(!sideBar)} className = 'bg-clear border-0 rounded-1x px-2'>
                                             <span className = 'bi-border-width fa-2x text-dark'></span>
                                         </button>
                                     </div>
@@ -54,7 +56,44 @@ export default function DashboardTemplate({account_type, children}){
                     </div>
                 </div>
             </div>
+            <div className = {`${sideBar ? 'animated fadeIn' : 'd-none'} vw-100 bg-light-dark po-fixed top-0 left-0`} style = {{zIndex: 100000}}>
+                <div>
+                    <div className = 'row'>
+                        <div className = 'col vh-100'>
+                        </div>
+                        <div className = 'col-auto vh-100'>
+                            <div style = {{minWidth: '280px'}} className = {`${sideBar ? 'animated slideInRight' : 'd-none'} h-100 d-flex flex-column bg-white shadow`}>
+                                <div className = 'py-5 text-center'>
+                                    <Logo />
+                                </div>
+                                <div className = 'overflow-y-auto flex-1'>
+                                    <div className = 'container-fluid pt-4'>{
+                                        url.map(({name, href, Icon}) => (
+                                            <a key = {href} href = {href} className = {`${asPath === href ? 'theme-color theme-bg-light' : 'text-muted'} row underline-0 a-i-c mb-4 border-0 rounded-2x py-3 w-100 m-0`}>
+                                                <span className = 'col-auto'>
+                                                    <Icon />
+                                                </span>
+                                                <span className = 'col text-left p-0'>
+                                                    <span className = 'text-capitalize one-line'>{name}</span>
+                                                </span>
+                                            </a>
+                                        ))
+                                    }</div>
+                                </div>
+                                <div className = 'py-2 text-center'>
+                                    <button onClick = {() => setSideBar(false)} className = 'bg-clear border-0 rounded-1x px-2'>
+                                        <span className = 'bi-x fa-3x text-dark'></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <style>{`
+                .bg-light-dark{
+                    background: rgba(0,0,0,.5);
+                }
                 .min-width-230px{
                     width: 230px;
                 }
