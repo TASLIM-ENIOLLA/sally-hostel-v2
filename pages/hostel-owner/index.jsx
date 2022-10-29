@@ -25,7 +25,7 @@ export default function Index({account_type, jwt_token}){
                 <section className = 'container-fluid py-5 po-sticky top-0 left-0 w-100 bg-light-fade-down z-index-10'>
                     <div className = 'row a-i-c j-c-space-between'>
                         <div className = 'col-auto'>
-                            <div className = 'h2 text-capitalize theme-color'>overview</div>
+                            <div className = 'h2 text-capitalize theme-color'>overviews</div>
                         </div>
                         <div className = 'col-auto col-sm-auto'>
                             <div className = 'container-fluid'>
@@ -35,7 +35,7 @@ export default function Index({account_type, jwt_token}){
                                         <span className = 'text-muted text-capitalize'>{userData.account_type?.replace('_', ' ')}</span>
                                     </div>
                                     <div className = 'col-auto'>
-                                        <ProfileImg src = {`${SERVER.BACKEND.URL}${userData.profile_img}`} width = '40' />
+                                        {/* <ProfileImg src = {`${SERVER.BACKEND.URL}${userData.profile_img}`} width = '40' /> */}
                                     </div>
                                 </div>
                             </div>

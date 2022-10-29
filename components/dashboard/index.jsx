@@ -8,6 +8,15 @@ export default function DashboardTemplate({account_type, children}){
 
     return (
         <section>
+            <div className = 'container-fluid'>
+                <div className = 'row'>
+                    <div className = 'col-auto'>
+                        <button className = 'bg-clear border-0 px-3 py-2'>
+                            <span className = 'bi-filter-right fa-2x theme-color'></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div className = 'd-flex bg-light'>
                 <div className = 'd-none d-md-block min-width-230px bg-white border-left p-0'>
                     <div className = 'vh-100 overflow-y-auto'>
