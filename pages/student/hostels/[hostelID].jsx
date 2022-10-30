@@ -1,6 +1,7 @@
 import {API, SERVER} from '/config'
 import {useRouter} from 'next/router'
 import {useEffect, useState} from 'react'
+import Script from 'next/script'
 import {ParseObjectToFormData} from '/functions'
 import DashboardTemplate from '/components/dashboard'
 import {JWTVerficationComponent} from '/components/jwt'
@@ -77,11 +78,14 @@ export default function Index({account_type, jwt_token}){
                                     </div>
                                     <div className = 'col-12 mb-5'>
                                         <h5 className = 'theme-color text-capitalize mb-3'>get direction</h5>
-                                        <p className = 'text-muted text-sentence'>{description}</p>
-                                        <div id="map" className = "bg-secondary" style = {{
+                                        <div id="map" className = "bg-secondary all-round rounded-2x shadow" style = {{
                                             top: 0,
                                             bottom: 0,
-                                            width: "100%"
+                                            width: "100%",
+                                            height: "300px",
+                                            backgroundSiz: 'cover',
+                                            backgroundPosition: 'center',
+                                            backgroundImage: 'url(/images/map.png)'
                                         }}></div>
                                     </div>{
                                         (owner_verified)
@@ -110,6 +114,13 @@ export default function Index({account_type, jwt_token}){
                     : <></>
                 }</section>
                 <style jsx>{`
+                    @keyframes all_round{
+                        from{background-position: top left}
+                        to{background-position: bottom right}
+                    }
+                    .all-round{
+                        animation: all_round 30s ease infinite;
+                    }
                     .z-index-10{
                         z-index: 10;
                     }
