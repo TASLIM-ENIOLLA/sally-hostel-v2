@@ -73,7 +73,7 @@ export default function Index({account_type, jwt_token}){
                                                 <div className = 'col-12'>
                                                     <div className = 'text-center my-5 p-5 rounded-2x shadow-sm bg-white half-bold text-muted'>
                                                         <div className = 'py-3 half-bold'>
-                                                            You haven't add any hostel yet. Click <a className = 'theme-color underline' href = './hostels/new'>here</a> to add hostels.
+                                                            You haven't add any hostel yet. Click <a className = 'theme-color underline' href = './hostel-owner/hostels/new'>here</a> to add hostels.
                                                         </div>
                                                     </div>
                                                 </div>
