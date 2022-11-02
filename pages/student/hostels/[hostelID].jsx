@@ -12,13 +12,15 @@ const hostelImageURL = `${SERVER.BACKEND.URL}images/hostel-owner/`
 export default function Index({account_type, jwt_token}){
     const {query: {hostelID}} = useRouter()
     const [hostelData, setHostelData] = useState()
-    const {name, been_paid_for, hostel_owner_f_name, hostel_owner_l_name, hostel_type, photos, owner_id, id, address, price, vacant_apartments, type, features, views, timestamp, owner_verified, description} = hostelData || {}
+    const {name, been_paid_for, hostel_owner_f_name, hostel_owner_l_name, hostel_type, photos, owner_id, id, address, price, vacant_apartments, type, user_verified, features, views, timestamp, owner_verified, description} = hostelData || {}
 
     useEffect(() => {
         fetch(API.student.get_hostel_data, {method: 'POST', body: ParseObjectToFormData({jwt_token, hostel_id: hostelID})})
         .then(e => e.json())
         .then(({data}) => setHostelData(data))
     }, [])
+
+    useEffect(() => console.log(hostelData), [hostelData])
 
     return (
         <JWTVerficationComponent jwt_token = {jwt_token}>
@@ -90,15 +92,24 @@ export default function Index({account_type, jwt_token}){
                                     </div>{
                                         (owner_verified)
                                         ? (
-                                            <div className = 'col-12'>{
-                                                (been_paid_for)
-                                                ? (
-                                                    <p className = 'theme-color half-bold text-sentence mb-3'>you have already made payment for this hostel. Do you want to make another?</p>
-                                                )
-                                                : <></>
-                                            }
-                                                <a  href = {`../make-payment/${id}`} className = 'text-center p-4 rounded-2x shadow theme-bg text-white underline-0 border-0 d-block w-100 text-capitalize half-bold'>make payment</a>
-                                            </div>
+                                            (user_verified)
+                                            ? (
+                                                <div className = 'col-12'>{
+                                                    (been_paid_for)
+                                                    ? (
+                                                        <p className = 'theme-color half-bold text-sentence mb-3'>you have already made payment for this hostel. Do you want to make another?</p>
+                                                    )
+                                                    : <></>
+                                                }
+                                                    <a  href = {`../make-payment/${id}`} className = 'text-center p-4 rounded-2x shadow theme-bg text-white underline-0 border-0 d-block w-100 text-capitalize half-bold'>make payment</a>
+                                                </div>
+                                            )
+                                            : (
+                                                <div className = 'col-12'>
+                                                    <p className = 'text-danger half-bold text-sentence mb-3'>payment has been disallowed for this hostel as your account has not been verified</p>
+                                                    <button className = 'disabled p-4 rounded-2x shadow bg-danger text-white border-0 d-block w-100 text-capitalize half-bold'>make payment</button>
+                                                </div>
+                                            )
                                         )
                                         : (
                                             <div className = 'col-12'>

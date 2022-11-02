@@ -1,10 +1,14 @@
 import {API} from '/config'
+import {useRouter} from 'next/router'
 import {Component409} from '/components/400'
 import {ParseObjectToFormData} from '/functions'
 import {useEffect, useState, Fragment} from 'react'
 
 export const JWTVerficationComponent = ({jwt_token, children}) => {
+    const {route} = useRouter()
+    const [accountType, setAccountType] = useState()
     const [verified, setVerification] = useState('PENDING')
+    const [routeAllowed, setRouteAllowed] = useState(false)
 
     useEffect(() => {
         fetch(API.verify_token, {
@@ -12,10 +16,15 @@ export const JWTVerficationComponent = ({jwt_token, children}) => {
             body: ParseObjectToFormData({jwt_token})
         })
         .then(e => e.json())
-        .then(({auth}) => setVerification(auth))
+        .then(({auth, payload: {account_type}}) => {
+            setVerification(auth)
+            setAccountType(account_type.replace('_', '-'))
+        })
+
     }, [])
 
     if(verified === 'PENDING') return <Loader />
+    else if(accountType && !new RegExp(`\/${accountType}\/?`).test(route)) window.location.replace(`/${accountType}`)
     else if(['STALLED', 'REJECTED'].includes(verified)) return <Component409 />
     else return (
         <Fragment>

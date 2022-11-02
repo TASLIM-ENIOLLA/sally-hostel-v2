@@ -47,7 +47,7 @@ export const API = {
 		remove_from_favourites: new URL('php/processes/student/RemoveFromFavourites.php', SERVER.BACKEND.URL).href,
 		most_viewed_hostel:     new URL('php/processes/student/MostViewedHostel.php', SERVER.BACKEND.URL).href,
 		change_password:        new URL('php/processes/student/ChangePassword.php', SERVER.BACKEND.URL).href,
-		delete_password:        new URL('php/processes/student/DeleteAccount.php', SERVER.BACKEND.URL).href,
+		delete_account:        new URL('php/processes/student/DeleteAccount.php', SERVER.BACKEND.URL).href,
 		get_user_data:          new URL('php/processes/student/GetUserData.php', SERVER.BACKEND.URL).href,
 		get_hostel_data:        new URL('php/processes/student/GetHostelData.php', SERVER.BACKEND.URL).href,
 		register_payment:       new URL('php/processes/student/RegisterPayment.php', SERVER.BACKEND.URL).href,

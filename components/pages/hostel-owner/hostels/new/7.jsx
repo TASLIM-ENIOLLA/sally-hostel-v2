@@ -34,7 +34,7 @@ export default {
                     </div>
                     <div className = 'row a-i-c mb-4'>
                         <div className = 'col'>
-                            <div className = 'text-sentence text-muted m-0 half-bold'>lets help yuo keep track of how many apartments you have left.</div>
+                            <div className = 'text-sentence text-muted m-0 half-bold'>lets help you keep track of how many apartments you have left.</div>
                         </div>
                     </div>
                     <div className = 'row a-i-c'>
